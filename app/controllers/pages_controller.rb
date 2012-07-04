@@ -6,10 +6,14 @@ class PagesController < ApplicationController
   end
 
   def page1
-    render :layout => false
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
   end
 
   def page2
-    render :layout => false
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
   end
 end

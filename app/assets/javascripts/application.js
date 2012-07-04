@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
-//= require pjax
+//= require modernizr
+//= require response
+//= require jquery.transit
+
+//= require jquery.pjax
+
 //= require pages

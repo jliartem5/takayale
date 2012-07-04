@@ -1,12 +1,37 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+((window, document, $, R) ->
+  
+  $("a").live("click", ->
+    $(this).parent().parent().find($("dd")).removeClass("active")
+    $(this).parent().addClass("active")
+  ).pjax
+    container: "#slide_temp"
+    duration: 3000
 
-$ ->
-  # $('body').bind 'start.pjax', ->
-  #   console.log("dwawa")
-  #   $("[data-pjax-container='']").hide('slide', {direction: 'right'})
-  #   console.log("after")
-  #   return
-  # $('body').bind 'end.pjax', ->
-  #   $("[data-pjax-container='']").show('slide')
+  $("#slide_temp").bind 'pjax:bubble', ->
+    alert "toto"
+    false
+  $("#slide_temp").bind 'pjax:start', ->
+    $('#slides_container').append('<div class="slide slide_next"></div>')
+    $('#loader').show()
+    false
+
+  $("#slide_temp").bind 'pjax:end', ->
+    a = $('#slide_temp').html()
+    $('.slide_next').html a
+    $('.slide_next').css(x: "100%").transition
+      x: 0
+      duration: 1000
+      rotate: 0
+      easing: "ease"
+    $('.slide_active').css(x: "0").transition
+      x: '-100%'
+      duration: 1000
+      rotate: 0
+      easing: "ease"
+    , ->
+      $('#slides_container div').first().remove()
+    $('.slide_next').removeClass('slide_next').addClass('slide_active')
+    false
+
+  false
+) this, @document, @jQuery, @Response
