@@ -15,6 +15,8 @@
 //= require modernizr
 //= require response
 //= require jquery.transit
+//= require iscroll
+//= require jquery.iscroll
 
 //= require jquery.pjax
 

@@ -1,6 +1,14 @@
 PjaxRails::Application.routes.draw do
-  get "page1" => "pages#page1"
-  get "page2" => "pages#page2"
+  get "yakitori" => "pages#yakitori"
+  get "sushi" => "pages#sushi"
+  get "sashimi" => "pages#sashimi"
+  get "maki" => "pages#maki"
+  get "california" => "pages#california"
+  get "primptemps" => "pages#primptemps"
+  get "delice" => "pages#delice"
+  get "menu" => "pages#menu"
+  get "menu_midi" => "pages#menu_midi"
+  get "contact" => "pages#contact"
 
   root :to => "pages#index"
 end

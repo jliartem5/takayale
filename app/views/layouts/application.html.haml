@@ -5,16 +5,10 @@
     = stylesheet_link_tag "application", :media => "all"
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
   %body
-    %header
-      %dl.nice.vertical.tabs
-        %dd.active
-          %a{:href => "/"} Home
-        %dd
-          %a{:href => "/page1"} page1
-        %dd
-          %a{:href => "/page2"} page2
+    = render "header"
     #slides_container
       .slide.slide_active
         = yield
     #slide_temp
+      = yield
     = javascript_include_tag "application"
