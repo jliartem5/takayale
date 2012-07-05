@@ -7,7 +7,6 @@ var m = Math,
   mround = function (r) { return r >> 0; },
   vendor = (/webkit/i).test(navigator.appVersion) ? 'webkit' :
     (/firefox/i).test(navigator.userAgent) ? 'Moz' :
-    (/trident/i).test(navigator.userAgent) ? 'ms' :
     'opera' in window ? 'O' : '',
 
     // Browser capabilities
@@ -27,16 +26,15 @@ var m = Math,
       || window.mozRequestAnimationFrame
       || window.oRequestAnimationFrame
       || window.msRequestAnimationFrame
-      || function(callback) { return setTimeout(callback, 1); };
+      || function(callback) { return setTimeout(callback, 1); }
   })(),
   cancelFrame = (function () {
       return window.cancelRequestAnimationFrame
-      || window.webkitCancelAnimationFrame
       || window.webkitCancelRequestAnimationFrame
       || window.mozCancelRequestAnimationFrame
       || window.oCancelRequestAnimationFrame
       || window.msCancelRequestAnimationFrame
-      || clearTimeout;
+      || clearTimeout
   })(),
 
   // Events
@@ -75,7 +73,6 @@ var m = Math,
       useTransition: false,
       topOffset: 0,
       checkDOMChanges: false,   // Experimental
-      handleClick: true,
 
       // Scrollbar
       hScrollbar: true,
@@ -110,7 +107,13 @@ var m = Math,
       onZoom: null,
       onZoomEnd: null
     };
-
+    // Helpers FIX ANDROID BUG!
+    // translate3d and scale doesn't work together! 
+    // Ignoring 3d ONLY WHEN YOU SET that.zoom
+    if ( that.zoom && isAndroid ){
+      trnOpen = 'translate(';
+      trnClose = ')';
+    }
     // User defined options
     for (i in options) that.options[i] = options[i];
     
@@ -124,14 +127,6 @@ var m = Math,
     that.options.vScrollbar = that.options.vScroll && that.options.vScrollbar;
     that.options.zoom = that.options.useTransform && that.options.zoom;
     that.options.useTransition = hasTransitionEnd && that.options.useTransition;
-
-    // Helpers FIX ANDROID BUG!
-    // translate3d and scale doesn't work together! 
-    // Ignoring 3d ONLY WHEN YOU SET that.options.zoom
-    if ( that.options.zoom && isAndroid ){
-      trnOpen = 'translate(';
-      trnClose = ')';
-    }
     
     // Set some default styles
     that.scroller.style[vendor + 'TransitionProperty'] = that.options.useTransform ? '-' + vendor.toLowerCase() + '-transform' : 'top left';
@@ -259,8 +254,6 @@ iScroll.prototype = {
   },
   
   _pos: function (x, y) {
-    if (this.zoomed) return;
-
     x = this.hScroll ? x : 0;
     y = this.vScroll ? y : 0;
 
@@ -429,12 +422,12 @@ iScroll.prototype = {
       newY = that.options.bounce ? that.y + (deltaY / 2) : newY >= that.minScrollY || that.maxScrollY >= 0 ? that.minScrollY : that.maxScrollY;
     }
 
-    that.distX += deltaX;
-    that.distY += deltaY;
-    that.absDistX = m.abs(that.distX);
-    that.absDistY = m.abs(that.distY);
-
     if (that.absDistX < 6 && that.absDistY < 6) {
+      that.distX += deltaX;
+      that.distY += deltaY;
+      that.absDistX = m.abs(that.distX);
+      that.absDistY = m.abs(that.distY);
+
       return;
     }
 
@@ -518,7 +511,7 @@ iScroll.prototype = {
               that.options.onZoomEnd.call(that, e);
             }, 200); // 200 is default zoom duration
           }
-        } else if (this.options.handleClick) {
+        } else {
           that.doubleTapTimer = setTimeout(function () {
             that.doubleTapTimer = null;
 
@@ -631,12 +624,10 @@ iScroll.prototype = {
     if ('wheelDeltaX' in e) {
       wheelDeltaX = e.wheelDeltaX / 12;
       wheelDeltaY = e.wheelDeltaY / 12;
-    } else if('wheelDelta' in e) {
-      wheelDeltaX = wheelDeltaY = e.wheelDelta / 12;
     } else if ('detail' in e) {
       wheelDeltaX = wheelDeltaY = -e.detail * 3;
     } else {
-      return;
+      wheelDeltaX = wheelDeltaY = -e.wheelDelta;
     }
     
     if (that.options.wheelAction == 'zoom') {
@@ -667,10 +658,8 @@ iScroll.prototype = {
 
     if (deltaY > that.minScrollY) deltaY = that.minScrollY;
     else if (deltaY < that.maxScrollY) deltaY = that.maxScrollY;
-    
-    if(that.maxScrollY < 0){
-      that.scrollTo(deltaX, deltaY, 0);
-    }
+
+    that.scrollTo(deltaX, deltaY, 0);
   },
   
   _mouseout: function (e) {
@@ -876,7 +865,7 @@ iScroll.prototype = {
     that._unbind(END_EV);
     that._unbind(CANCEL_EV);
     
-    if (!that.options.hasTouch) {
+    if (that.options.hasTouch) {
       that._unbind('mouseout', that.wrapper);
       that._unbind(WHEEL_EV);
     }
@@ -997,8 +986,6 @@ iScroll.prototype = {
 
   scrollToPage: function (pageX, pageY, time) {
     var that = this, x, y;
-    
-    time = time === undefined ? 400 : time;
 
     if (that.options.onScrollStart) that.options.onScrollStart.call(that);
 
@@ -1020,7 +1007,7 @@ iScroll.prototype = {
       if (y < that.maxScrollY) y = that.maxScrollY;
     }
 
-    that.scrollTo(x, y, time);
+    that.scrollTo(x, y, time || 400);
   },
 
   disable: function () {

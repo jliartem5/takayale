@@ -1,30 +1,18 @@
-init = ->
-  loaded = undefined
-  myScroll = undefined
-  loaded = ->
-    myScroll = undefined
-    myScroll = new iScroll("wrapper",
-      hScrollbar: false
-      fixedScrollbar: true
-    )
-  window.addEventListener "load", loaded, false
-
-init()
-
 ((window, document, $, R) ->
-
+  
   $("a").live("click", ->
     $(this).parent().parent().find($("dd")).removeClass("active")
     $(this).parent().addClass("active")
+    false
   ).pjax
     container: "#slide_temp"
     duration: 3000
 
-  $("#slide_temp").live().bind 'pjax:start', ->
+  $("#slide_temp").bind 'pjax:start', ->
     $('#slides_container').append('<div class="slide slide_next"></div>')
     false
 
-  $("#slide_temp").live().bind 'pjax:success', ->
+  $("#slide_temp").bind 'pjax:end', ->
     a = $('#slide_temp').html()
     $('.slide_next').html a
     $('.slide_next').dequeue().css(x: "100%").transition
@@ -40,13 +28,12 @@ init()
     , ->
       if $('#slides_container').children().size() >= 2
         $('#slides_container div').first().remove()
-        $('#slide_temp div').remove()
+    $('#slide_temp div').remove()
     $('.slide_next').removeClass('slide_next').addClass('slide_active')
-
-    false
-
     elem = $("#wrapper")
     elem.iscroll()
 
+  elem = $("#wrapper")
+  elem.iscroll()
   false
 ) this, @document, @jQuery, @Response
