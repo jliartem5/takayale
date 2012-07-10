@@ -28,12 +28,12 @@
     , ->
       if $('#slides_container').children().size() >= 2
         $('#slides_container div').first().remove()
-    $('#slide_temp div').remove()
+        elem = $(".wrapper")
+        elem.iscroll()
     $('.slide_next').removeClass('slide_next').addClass('slide_active')
-    elem = $("#wrapper")
-    elem.iscroll()
 
-  elem = $("#wrapper")
+
+  elem = $(".wrapper")
   elem.iscroll()
   false
 ) this, @document, @jQuery, @Response

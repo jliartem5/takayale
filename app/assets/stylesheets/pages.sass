@@ -63,20 +63,23 @@ body
       -webkit-perspective: 1000
       .row
         width: 100%
-      #wrapper
+      .wrapper
         position: absolute
         z-index: 1
         top: 0px
         bottom: 0px
         left: 0
         width: 100%
-        overflow: auto
+        overflow: hidden
         #scroller
+          overflow: hidden
           position: absolute
           z-index: 1
           -webkit-tap-highlight-color: rgba(0,0,0,0)
           width: 100%
           padding: 0
+          padding-right: 10px
+          padding-left: 10px
           ul
             li
               .food_infos
