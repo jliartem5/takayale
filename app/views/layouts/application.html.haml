@@ -4,11 +4,27 @@
     %title PjaxRails
     = stylesheet_link_tag "application", :media => "all"
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-  %body
-    = render "header"
-    #slides_container
-      .slide.slide_active
-        = yield
+  %body{ :class => "off-canvas slide-nav"}
+    .container
+      .container.top-bar.home-border.expanded.show-for-small
+        .attached
+          %a.right#sidebarButton.sidebar-button.button{:href => "#sidebar"} menu
+          %h1.logo
+            %a{:href => "/"}
+              takayale
+              %br
+              %small
+                Restaurant Japonais
+      .row#main-content
+        %section#main{:role => "main"}
+          #slides_container
+            .slide.slide_active
+              = yield
+        %section#sidebar{:role => "complementary"}
+          = render "header"
     #slide_temp
       = yield
     = javascript_include_tag "application"
+    %script{:src => "http://use.typekit.com/ixw3oih.js", :type => "text/javascript"}
+    :javascript
+      try{Typekit.load();}catch(e){}
