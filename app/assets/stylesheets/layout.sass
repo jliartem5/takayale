@@ -1,7 +1,24 @@
 body
+  background: black
   position: static
   overflow: hidden
   font-family: "museo-sans", "helvetica neue", helvetica, sans-serif
+  #home
+    #bg
+      position: fixed
+      top: -50%
+      left: -50%
+      width: 200%
+      height: 200%
+      img
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+        min-width: 50%
+        min-height: 50%
   #slide_temp
     display: none
   .top-bar
@@ -28,12 +45,25 @@ body
     position: absolute
     height: 100%
     padding: 0
+    margin-left: 1px
     header
       background: black image-url("menu_background.png") no-repeat bottom center
       height: 100%
       z-index: 200
       hr
         margin: 20px 115px
+      a.contact
+        background: none
+        border: none
+        box-shadow: none
+        padding: 8px 20px
+        line-height 16px
+        color: white
+        font-size: 14px
+        font-weight: bold
+        text-align: center
+        width: 100%
+        float: left
       h1.logo
         margin-top: 0
         padding-top: 40px
@@ -107,7 +137,7 @@ body
             position: absolute
           -webkit-transform: translateZ(0)
           -webkit-perspective: 1000
-      #maki, #california, #delice, #sushi, #yakitori, #primptemps, #sashimi
+      #maki, #california, #delice, #sushi, #yakitori, #primptemps, #sashimi, #menu, #menu_midi
         position: absolute
         background: white
         width: 100%

@@ -1,11 +1,13 @@
 !!!
 %html
   %head
-    %title PjaxRails
+    %title TAKAYALE Restaurant Japonais
     = stylesheet_link_tag "application", :media => "all"
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
   %body{ :class => "off-canvas slide-nav"}
+    ///CONTAINER//
     .container
+      ///TOPBAR//
       .container.top-bar.home-border.expanded.show-for-small
         .attached
           %a.right#sidebarButton.sidebar-button.button{:href => "#sidebar"} menu
@@ -15,15 +17,20 @@
               %br
               %small
                 Restaurant Japonais
+      ///CONTENT//
       .row#main-content
+        //MAIN CONTENT//
         %section#main{:role => "main"}
           #slides_container
             .slide.slide_active
               = yield
+        //SIDEBAR//
         %section#sidebar{:role => "complementary"}
           = render "header"
+    ///TEMP SLIDING CONTAINER//
     #slide_temp
       = yield
+    ///SCRIPTS//
     = javascript_include_tag "application"
     %script{:src => "http://use.typekit.com/ixw3oih.js", :type => "text/javascript"}
     :javascript
