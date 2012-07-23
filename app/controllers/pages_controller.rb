@@ -53,7 +53,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def menu_midi
+  def platschaud
     if request.headers['X-PJAX']
       render :layout => false
     end

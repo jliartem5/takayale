@@ -16,10 +16,14 @@
 //= require jquery_ujs
 //= require jquery.pjax
 //= require jquery.transit
+//= require jquery.flexslider
+//
+// ** MODERNIZER **
+//
+//= require modernizr
 //
 // ** FOUNDATION **
 //
-//= require foundation
 //= require foundation/jquery.offcanvas
 //
 // ** RESPONSE **
@@ -31,8 +35,6 @@
 //= require iscroll
 //= require jquery.iscroll
 //
-//
 // SCRIPTS
 //
-//=require scripts
 //=require pages
