@@ -65,14 +65,14 @@ var GMaps = (function(global) {
       position: 'TOP_LEFT'
     };
 
-    var zoomControl = options.zoomControl || true,
-        zoomControlStyle = zoomControlOpt.style || 'DEFAULT',
-        zoomControlPosition = zoomControlOpt.position || 'TOP_LEFT',
-        panControl = options.panControl || true,
-        mapTypeControl = options.mapTypeControl || true,
-        scaleControl = options.scaleControl || true,
-        streetViewControl = options.streetViewControl || true,
-        overviewMapControl = overviewMapControl || true;
+    var zoomControl = options.zoomControl || false,
+        zoomControlStyle = zoomControlOpt.style || false,
+        zoomControlPosition = zoomControlOpt.position || false,
+        panControl = options.panControl || false,
+        mapTypeControl = options.mapTypeControl || false,
+        scaleControl = options.scaleControl || false,
+        streetViewControl = options.streetViewControl || false,
+        overviewMapControl = overviewMapControl || false;
 
 
 

@@ -25,6 +25,7 @@
 // ** FOUNDATION **
 //
 //= require foundation/jquery.offcanvas
+//= require foundation/jquery.reveal
 //
 // ** RESPONSE **
 //

@@ -1,31 +1,25 @@
-$(window).load ->
-    $(".flexslider").flexslider
-      animationSpeed: 1000
-      keyboard: true
-      controlNav: true
-      directionNav: true
+jQuery.fn.idle = (time) ->
+  i = $(this)
+  i.queue ->
+    setTimeout (->
+      i.dequeue()
+    ), time
 
 init =
   initMap: ->
     if document.getElementById("map")
       map = new GMaps({
         div: '#map'
-        lat: 48.63737 
-        lng: 2.33296
+        lat: 48.640965 
+        lng: 2.333135
+        zoom: 16
       })
       map.addMarker
-        lat: 48.63737 
-        lng: 2.33296
+        lat: 48.640965
+        lng: 2.333135
         title: "Takayale"
-        details:
-          database_id: 42
-          author: "HPNeo"
-
         click: (e) ->
-          console.log e  if console.log
-          alert "You clicked in this marker"
-    else
-      return
+          $("#myModal").reveal()
   initSize: -> 
     Response.action ->
       R = window.Response
@@ -56,13 +50,14 @@ init =
 init.initSize()
 init.initMap()
 
+$(window).load ->
+    $(".flexslider").flexslider
+      animationSpeed: 1000
+      keyboard: true
+      controlNav: true
+      directionNav: true
+
 ((window, document, $, R) ->
-  jQuery.fn.idle = (time) ->
-    i = $(this)
-    i.queue ->
-      setTimeout (->
-        i.dequeue()
-      ), time
 
   current_page = $(".slide_active").children().attr("id")
   $("#main-nav a[href*="+current_page+"]").parent().addClass("active")
