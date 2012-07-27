@@ -5,7 +5,27 @@ $(window).load ->
       controlNav: true
       directionNav: true
 
-size =      
+init =
+  initMap: ->
+    if document.getElementById("map")
+      map = new GMaps({
+        div: '#map'
+        lat: 48.63737 
+        lng: 2.33296
+      })
+      map.addMarker
+        lat: 48.63737 
+        lng: 2.33296
+        title: "Takayale"
+        details:
+          database_id: 42
+          author: "HPNeo"
+
+        click: (e) ->
+          console.log e  if console.log
+          alert "You clicked in this marker"
+    else
+      return
   initSize: -> 
     Response.action ->
       R = window.Response
@@ -33,7 +53,8 @@ size =
         "width": ratioWidth
         "max-width": ratioWidth
 
-size.initSize()
+init.initSize()
+init.initMap()
 
 ((window, document, $, R) ->
   jQuery.fn.idle = (time) ->
@@ -56,7 +77,7 @@ size.initSize()
 
   $("#slide_temp").bind 'pjax:start', ->
     if $('#main-content .slide_active .wrapper').children().size() > 1
-      $('#main-content .slide_active .wrapper > div').last().hide().remove()
+      $('#main-content .slide_active .wrapper > div').last().hide()
     $('#slides_container').append('<div class="slide slide_next"></div>')
     false
 
@@ -68,7 +89,7 @@ size.initSize()
       keyboard: true
       controlNav: true
       directionNav: true
-    size.initSize()
+    init.initSize()
     $('.slide_next').dequeue().css(x: "100%").transition
       x: 0
       duration: 1000
@@ -84,14 +105,20 @@ size.initSize()
     , ->
       if $('#slides_container').children().size() >= 2
         $('#slides_container div').first().remove()
-        elem = $(".wrapper")
-        elem.iscroll()
+        if document.getElementById("scroller")
+          elem = $("#main .slide_active .wrapper")
+          elem.iscroll()
+        else
+          return
     $('.slide_next').addClass('slide_active').removeClass('slide_next')
-    $('body').toggleClass('active')  
+    $('body').toggleClass('active')
+    init.initMap()
     false
 
-  elem = $(".wrapper")
-  elem.iscroll()
-  init()
+  if document.getElementById("scroller")
+    elem = $("#main .slide_active .wrapper")
+    elem.iscroll()
+  else
+    false
   false
 ) this, @document, @jQuery, @Response

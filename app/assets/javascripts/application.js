@@ -35,6 +35,10 @@
 //= require iscroll
 //= require jquery.iscroll
 //
+// ** GMAP **
+//
+//=require gmap
+//
 // SCRIPTS
 //
 //=require pages
