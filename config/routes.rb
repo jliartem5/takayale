@@ -7,6 +7,7 @@ PjaxRails::Application.routes.draw do
   get "primptemps" => "pages#primptemps"
   get "delice" => "pages#delice"
   get "menu" => "pages#menu"
+  get "menu_midi" => "pages#menu_midi"
   get "platschaud" => "pages#platschaud"
   get "contact" => "pages#contact"
 
