@@ -29,24 +29,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def california
-    if request.headers['X-PJAX']
-      render :layout => false
-    end
-  end
-
-  def primptemps
-    if request.headers['X-PJAX']
-      render :layout => false
-    end
-  end
-
-  def delice
-    if request.headers['X-PJAX']
-      render :layout => false
-    end
-  end
-
   def menu
     if request.headers['X-PJAX']
       render :layout => false
