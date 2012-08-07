@@ -19,3 +19,7 @@ end
 group :developement do
   gem "foreman", "~> 0.41.0"
 end
+
+group :production do
+  gem 'newrelic_rpm'
+end
