@@ -53,6 +53,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def alacarte
+    if request.headers['X-PJAX']
+      render :layout => false
+    end
+  end
+
   def contact
     if request.headers['X-PJAX']
       render :layout => false
