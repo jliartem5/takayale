@@ -6,7 +6,9 @@ PjaxRails::Application.routes.draw do
   get "menu" => "pages#menu"
   get "menu_midi" => "pages#menu_midi"
   get "platschaud" => "pages#platschaud"
+  get "boissons" => "pages#boissons"
   get "contact" => "pages#contact"
+  get "alacarte" => "pages#alacarte"
 
   root :to => "pages#index"
 end
